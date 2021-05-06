@@ -51,7 +51,7 @@ architecture arch of zcsr is
   type XLEN_array is array(natural range <>) of ulogic_XLEN;
 
   --Break up CSR so not all 4096 registers need to be implimented
-  -- page 11 of the spec in table 2
+  -- page 11 of the priv spec in table 2
   signal read_only_csrs : XLEN_array (VENDOR_ID_ADDRESS to THREAD_ID_ADDRESS);
   signal trap_setup1    : XLEN_array (mstatus to misa); --medeleg and mideleg removed 
   signal trap_setup2    : XLEN_array (mie to mcounteren); --as they are only
@@ -69,16 +69,14 @@ architecture arch of zcsr is
   signal mcountinhibit_reg : XLEN_array (mcountinhibit to mcountinhibit);
   signal mhmevent        : XLEN_array (mhmevent_bottom to mhmevent_top);
 
-  --used to save rst and branch for counters
+  --used to save rst and branch for instructions retired counter
   type post_branch_states is --reset is not always on rising edge so
                              --post_rst_imm is included so it does not skip 5
     (post_rst5, post_rst4, post_branch,
      post_rst3, post_rst2, post_rst1, normal_operation);
   signal branch_rst_save: post_branch_states;--used to save values 
   
-  --Fixes to do:
---In systems with only M-mode, or with both M-mode and U-mode but without U-mode trap support,
---the medeleg and mideleg registers should not exist.
+--useful aliases for ease of use
   alias mtvec_reg   : ulogic_XLEN is trap_setup2(mtvec);
   alias mip_reg     : ulogic_XLEN is trap_handle(mip);
   alias mie_reg     : ulogic_XLEN is trap_setup2(mie);
@@ -206,7 +204,6 @@ begin
           out_val := mhmevent(csr_add_int);
 
         when others =>
-          --should this trap?
           if write_select = true then
             trap := true;
             mcause_set := trap_mcause(7);
@@ -222,7 +219,6 @@ begin
     begin
       case address is
         when misa =>
-
           if (data and misa_mask) /= (misa_rst and misa_mask) then
             trap := true;
             mcause_set := trap_mcause(6);
@@ -260,7 +256,6 @@ begin
     
     procedure csr_nochecks(csr_add_int : in address_type;
                            out_val     :out ulogic_XLEN)is
-      --variable isFalse : boolean := false;
       variable nothing : ulogic_XLEN;
     begin
       csr_nochecks(csr_add_int, nothing, out_val, false);
@@ -279,9 +274,7 @@ begin
     
     procedure csr(csr_add_int : in address_type; --this procudre can be improved  
                   out_val    :out ulogic_XLEN)is
-      --change this to just use csr_nochecks( in, out) as no WARL check needs
-      --to be performed
-      variable nothing : ulogic_XLEN;
+      variable nothing : ulogic_XLEN; --non-pedantic version of csr_nochecks(csr_add_int; out_val);
     begin
       csr_nochecks(csr_add_int, nothing, out_val, false);
     end csr;
@@ -316,13 +309,14 @@ begin
       end if;
     end manage_itr;
     
-    procedure rst_csr is --resets the csr, is it's own procedure because the
-      --amount of csrs could change
+    procedure rst_csr is --resets the csr
       variable var : natural;
       variable ignore : ulogic_XLEN;
       
     begin
-      for i in 0 to 16#C00# -1 loop --write zereos to all - very lazy 
+      for i in 0 to 16#C00# -1 loop --write zereos to all
+      -- may not be hardware efficent and CSRs not needed be reset to 0
+      -- by spec so may be pointless, good for debugging though
         var := i;
         csr_nochecks(var,X"00000000", ignore, true);
       end loop;
@@ -335,6 +329,7 @@ begin
     
     function ulog_2_signed (vec : in std_ulogic_vector) return signed is
     -- signed('0' & mtvec_reg(XLEN downto 2) & "00") did not compile due to overloading
+    -- so I made it a function instead
     begin
       return signed(vec);
     end ulog_2_signed;
@@ -457,7 +452,11 @@ begin
       trap   := false;	
       trap_PC <= '0';
       
-      case inst_enum_in is
+      case inst_enum_in is --manage different instructions
+                           -- CSR instructions are in unprivileged spec
+                           -- As are Ebreak and iFence
+                           -- Rest are trap causing side effects defined
+                           -- in the priv spec
         when iCSRRW => --write RS1
           temp_read := rs1_in;
 
