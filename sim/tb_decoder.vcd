@@ -1,0 +1,136 @@
+$date
+  Thu Feb 11 10:33:46 2021
+$end
+$version
+  GHDL v0
+$end
+$timescale
+  1 fs
+$end
+$scope module standard $end
+$upscope $end
+$scope module std_logic_1164 $end
+$upscope $end
+$scope module numeric_std $end
+$upscope $end
+$scope module riscv_32i $end
+$upscope $end
+$scope module helpers $end
+$upscope $end
+$scope module tb_helpers $end
+$upscope $end
+$scope module assembler $end
+$upscope $end
+$scope module tb_decoder $end
+$var reg 1 ! clk $end
+$var reg 1 " rst $end
+$var reg 32 # inst_in[31:0] $end
+$var reg 5 $ rs1_add[4:0] $end
+$var reg 5 % rs2_add[4:0] $end
+$var reg 32 & inst_out[31:0] $end
+$var reg 1 ' tbclock $end
+$var reg 1 ( tbsimended $end
+$scope module dut $end
+$var reg 1 ) clk $end
+$var reg 1 * rst $end
+$var reg 32 + inst_in[31:0] $end
+$var reg 5 , rs1_add[4:0] $end
+$var reg 5 - rs2_add[4:0] $end
+$var reg 32 . inst_out[31:0] $end
+$var reg 32 / inst_save[31:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+0!
+0"
+b00000000000000000000000000000000 #
+b00000 $
+b00000 %
+b00000000000000000000000000000000 &
+0'
+0(
+0)
+0*
+b00000000000000000000000000000000 +
+b00000 ,
+b00000 -
+b00000000000000000000000000000000 .
+b00000000000000000000000000000000 /
+#100000000
+1"
+1*
+#200000000
+b00000000011000100000000100110011 #
+b00000000011000100000000100110011 +
+#500000000
+1!
+b00100 $
+b00110 %
+1'
+1)
+b00100 ,
+b00110 -
+b00000000011000100000000100110011 /
+#1000000000
+0!
+0'
+0)
+#1200000000
+b01000001111111110000000010110011 #
+b01000001111111110000000010110011 +
+#1500000000
+1!
+b11110 $
+b11111 %
+b00000000011000100000000100110011 &
+1'
+1)
+b11110 ,
+b11111 -
+b00000000011000100000000100110011 .
+b01000001111111110000000010110011 /
+#2000000000
+0!
+0'
+0)
+#2200000000
+b00000000000000000000000001101111 #
+b00000000000000000000000001101111 +
+#2500000000
+1!
+b00000 $
+b00000 %
+b01000001111111110000000010110011 &
+1'
+1)
+b00000 ,
+b00000 -
+b01000001111111110000000010110011 .
+b00000000000000000000000001101111 /
+#3000000000
+0!
+0'
+0)
+#3200000000
+#3500000000
+1!
+b00000000000000000000000001101111 &
+1'
+1)
+b00000000000000000000000001101111 .
+#4000000000
+0!
+0'
+0)
+#4200000000
+#4500000000
+1!
+1'
+1)
+#5000000000
+0!
+0'
+0)
+#5200000000
+1(
