@@ -75,6 +75,9 @@ architecture arch of zcsr is
     (post_rst5, post_rst4, post_branch,
      post_rst3, post_rst2, post_rst1, normal_operation);
   signal branch_rst_save: post_branch_states;--used to save values 
+
+  --Will stall CPU when high
+  signal waiting_for_itr : boolean; 
   
 --useful aliases for ease of use
   alias mtvec_reg   : ulogic_XLEN is trap_setup2(mtvec);
@@ -296,15 +299,19 @@ begin
         --bits are on        
         if (external_itr_sw and mie_reg(3)) = '1' then --software itr
           take_itr(3);
+          waiting_for_itr <= false;
         elsif (external_itr_tm and mie_reg(7)) = '1'  then--Timer itr
           take_itr(7);
+          waiting_for_itr <= false;
         elsif (external_itr_hw and mie_reg(11)) = '1' then--external itr
           take_itr(11);
+          waiting_for_itr <= false;
         elsif or_all(mie_reg and mip_reg) = '1' then --find any other itr in
                                                      --WIRI space
           --catch all for all mip/mie after 16, not defined in spec so should
           --be legal, would be better to do with for loop or more of the above
           take_itr(16);
+          waiting_for_itr <= false;
         end if;
       end if;
     end manage_itr;
@@ -368,7 +375,7 @@ begin
       mcycle_reg (mcycle )<= std_ulogic_vector(bit64(31 downto 0 ));
     end increment_mcycle;
     
-
+    
     procedure manage_timers is --most of this is 3.1.10 of spec
     begin
       --checks on inhibit_reg are defiend by 3.1.12 of spec
@@ -409,12 +416,24 @@ begin
 
       increment_mcycle;      
     end manage_timers;
+
+    procedure manage_wait_itr(waiting : in boolean) is      
+    begin
+      if waiting = true then
+        trap_PC <= '1';        
+      else
+        trap_PC <= '0';
+      end if;      
+    end manage_wait_itr;
+
+    
     
   begin
     -- Spec states CSRRW should not be read when rd = x0, this isn't managed
     -- here and will still be read, just not saved to a register (page 56 unprivileged)
     
     if rst = '0' then --reset
+      waiting_for_itr <= false;
       acc_me     <= '0';
       PC_out <= (others => '0');
       trap_PC<= '0';
@@ -449,8 +468,9 @@ begin
       
       itr := false; --default values
       csr_read := '1';
-      trap   := false;	
-      trap_PC <= '0';
+      trap   := false;
+      manage_wait_itr(waiting_for_itr);--this also sets PC_trap
+
       
       case inst_enum_in is --manage different instructions
                            -- CSR instructions are in unprivileged spec
@@ -500,6 +520,17 @@ begin
           trap := true;  
           csr_read := '0';
           
+        when iWFI =>
+          --wait for interrupt
+          waiting_for_itr <= '1';
+          mret_reg <= std_ulogic_vector(unsigned(PC_in) + 4);
+          manage_wait_itr(true);
+          
+        when iMRET =>
+          --return from interrupt
+         
+
+
         when iLB to iLHU =>
           --this could be repalaced by reading the input to the cache
           --would lag traps behind by a clock cycle though 

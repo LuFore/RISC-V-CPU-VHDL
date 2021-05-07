@@ -15,6 +15,8 @@ package instructions is
     iAND, iFENCE, iECALL, iEBREAK, 
     --ziCSR
     iCSRRW, iCSRRS, iCSRRC, iCSRRWI, iCSRRSI, iCSRRCI,
+    --Machine-Mode Privileged Instructions 3.3 of priv spec
+    iMRET, iWFI,
     --Blank instruction
     i_not_found
     );
@@ -192,12 +194,21 @@ package body instructions is
 
       when SYSTEM =>
         case funct3 is
-          when "000" =>
-            if inst(31 downto 20) = "000000000000" then
-              return iECALL;
-            elsif inst(31 downto 20) = "000000000001" then
-              return iEBREAK;
-            end if;
+          when "000" => --PRIV system instsructions
+            case inst(31 downto 20) is
+              when "000000000000" =>
+                return iECALL;
+              when "000000000001" =>
+                return iEBREAK;
+              --ITR instructions
+              when "001100000010" =>
+                return iMRET;
+              when "000100000101" =>
+                return iWFI;
+              when others =>
+                null;
+            end case;
+                
             --csr instructions
           when "001" =>
             return iCSRRW;
@@ -211,7 +222,6 @@ package body instructions is
             return iCSRRSI;
           when "111" =>
             return iCSRRCI;
-
           when others =>
             null;
         end case;
