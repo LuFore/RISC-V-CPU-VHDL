@@ -284,6 +284,8 @@ begin
 
     procedure take_itr(mcause_reason: in natural) is -- take an interupt
     begin
+      waiting_for_itr <= false; --reset WFI
+
       mcause_set := itr_mcause(mcause_reason);          
       mstatus_reg(7) <= mstatus_reg(3); --mpie <= mie
       mstatus_reg(3) <= '0'; --disabled interrupts
@@ -299,19 +301,15 @@ begin
         --bits are on        
         if (external_itr_sw and mie_reg(3)) = '1' then --software itr
           take_itr(3);
-          waiting_for_itr <= false;
         elsif (external_itr_tm and mie_reg(7)) = '1'  then--Timer itr
           take_itr(7);
-          waiting_for_itr <= false;
         elsif (external_itr_hw and mie_reg(11)) = '1' then--external itr
           take_itr(11);
-          waiting_for_itr <= false;
         elsif or_all(mie_reg and mip_reg) = '1' then --find any other itr in
                                                      --WIRI space
           --catch all for all mip/mie after 16, not defined in spec so should
           --be legal, would be better to do with for loop or more of the above
           take_itr(16);
-          waiting_for_itr <= false;
         end if;
       end if;
     end manage_itr;
@@ -522,14 +520,18 @@ begin
           
         when iWFI =>
           --wait for interrupt
-          waiting_for_itr <= '1';
-          mret_reg <= std_ulogic_vector(unsigned(PC_in) + 4);
+          waiting_for_itr <= true;
+          trap_handle(mepc)
+            <= std_ulogic_vector(unsigned(PC_in) + to_unsigned(4,3));
+          PC_out <= PC_in;
           manage_wait_itr(true);
-          
+          csr_read := '0';
+
         when iMRET =>
           --return from interrupt
-         
-
+          PC_out <= trap_handle(mepc);
+          trap_PC<= '1';
+          csr_read := '0';
 
         when iLB to iLHU =>
           --this could be repalaced by reading the input to the cache
@@ -593,7 +595,12 @@ begin
       if (trap or itr) = true then
         if (PC_in(1 downto 0) = "00") then
           --save trap address, if aligned
-          trap_handle(mepc) <=  PC_in;
+          if waiting_for_itr = true then --find if triggering after a WFI
+            trap_handle(mepc) <=  std_ulogic_vector(
+              unsigned(PC_in) + to_unsigned(4,3)); --3.3 of priv spec
+          else
+            trap_handle(mepc) <=  PC_in;
+          end if;          
         end if;
         
         trap_handle(mcause) <= std_ulogic_vector(mcause_set);

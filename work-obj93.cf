@@ -1,133 +1,133 @@
 v 4
-file . "tb/zcsr_tb.vhd" "4e3d6e5215ba9018e5d0b3b81a2a5e722918fcd5" "20210506085114.490":
-  entity tb_zcsr at 1( 0) + 0 on 6500;
-  architecture tb of tb_zcsr at 19( 314) + 0 on 6501;
-file . "hw/zcsr.vhd" "a5b4e70836e07727a2c13d47ce31b24e135aa28a" "20210506085114.482":
-  entity zcsr at 1( 0) + 0 on 6498;
-  architecture arch of zcsr at 40( 1147) + 0 on 6499;
-file . "packages/instructions.vhd" "994b9591e337e5939b83f2d391213f35161479b5" "20210506085111.125":
-  package instructions at 1( 0) + 0 on 6450 body;
-  package body instructions at 42( 1298) + 0 on 6451;
-file . "packages/assemble_file.vhd" "858946cc187fee74fdf5790979a831869595c886" "20210506085111.170":
-  package assemble_file at 1( 0) + 0 on 6460 body;
-  package body assemble_file at 43( 1264) + 0 on 6461;
-file . "packages/string_operations.vhd" "15219dc5bb0b2af2a7a77503b9eba96a33dfedd0" "20210225145712.370":
-  package string_operations at 1( 0) + 0 on 2139 body;
-  package body string_operations at 15( 420) + 0 on 2140;
-file . "tb/cache_dma_tb.vhd" "ff48b0f8d23dcb034c5a0a497bdc5aa7e559798a" "20210504125404.549":
-  entity tb_cache_dma at 1( 0) + 0 on 6322;
-  architecture tb of tb_cache_dma at 19( 478) + 0 on 6323;
-file . "tb/pipeline_control_tb.vhd" "3d7a6fa6765885c06e31319cc1b8cce74a3a9614" "20210226133449.292":
-  entity tb_pipeline_control at 1( 0) + 0 on 2453;
-  architecture tb of tb_pipeline_control at 14( 224) + 0 on 2454;
-file . "tb/hart32i_tb.vhd" "5b91ecb6be91722237b3391aa981dce446db8c0c" "20210218194050.171":
-  entity tb_hart32i at 1( 0) + 0 on 1153;
-  architecture tb of tb_hart32i at 19( 331) + 0 on 1154;
-file . "tb/mem_access_rx_tb.vhd" "347f2460b1c7aa97368fefcb230e83f30680ac44" "20210207215506.908":
-  entity tb_mem_access_rx at 1( 0) + 0 on 575;
-  architecture tb of tb_mem_access_rx at 18( 353) + 0 on 576;
-file . "hw/mem_access_tx.vhd" "01cdb3d9f92bb2bf3fbf6611c92ea00f0f0e63d8" "20210506085111.198":
-  entity mem_access_tx at 1( 0) + 0 on 6488;
-  architecture arch of mem_access_tx at 37( 1048) + 0 on 6489;
-file . "hw/mem_access_rx.vhd" "71f0aec31d3f2bd060b9655a39a1c6f13fe9115c" "20210506085111.197":
-  entity mem_access_rx at 1( 0) + 0 on 6486;
-  architecture arch of mem_access_rx at 32( 865) + 0 on 6487;
-file . "hw/mem_acss.vhd" "6b1942b6103bb1ac5eb4708a8ab383dc988ae8c1" "20210206142805.447":
-  entity mem_acss at 1( 0) + 0 on 546;
-  architecture arch of mem_acss at 28( 841) + 0 on 547;
-file . "hw/decoder.vhd" "3ee0b66c5f9a818d28a34a9ac0fcedd9f4f42132" "20210506085111.190":
-  entity decoder at 1( 0) + 0 on 6476;
-  architecture decoder_arch of decoder at 21( 624) + 0 on 6477;
-file . "hw/PC.vhd" "d87fd60e150dc1914efb02f42ebbabefc475a661" "20210506085111.200":
-  entity pc at 1( 0) + 0 on 6490;
-  architecture pc_arch of pc at 23( 604) + 0 on 6491;
-file . "hw/reg_32.vhd" "8b0fd7c9e3d50d88514146cfa98e1e8b70ee2384" "20210506085111.203":
-  entity reg_32 at 1( 0) + 0 on 6494;
-  architecture reg_32_arch of reg_32 at 23( 774) + 0 on 6495;
-file . "hw/cache_pc.vhd" "24a160a4b87c84f02cb5278c47aa38052c89a7b8" "20210506085111.188":
-  entity cache_pc at 2( 1) + 0 on 6472;
-  architecture cache_arch of cache_pc at 30( 1077) + 0 on 6473;
-file . "tb/branch_control_tb.vhd" "734752a050a8dfb7a4dee8c15a7b37e1d99fc5fc" "20210204151500.027":
-  entity tb_branch_control at 1( 0) + 0 on 389;
-  architecture tb of tb_branch_control at 18( 494) + 0 on 390;
-  configuration cfg_tb_branch_control at 208( 6709) + 0 on 391;
-file . "tb/integer_32_ALU_tb.vhd" "582cb56d9d3740c53c7ae64b1cf35b1be6b40b59" "20210202135437.057":
-  entity tb_integer_32_alu at 1( 0) + 0 on 349;
-  architecture tb of tb_integer_32_alu at 17( 294) + 0 on 350;
-file . "packages/tb_heplers.vhd" "47c0fa7f6ae3220d80f10e43f63f744bf7915d6f" "20210506085111.144":
-  package tb_helpers at 1( 0) + 0 on 6454 body;
-  package body tb_helpers at 37( 1547) + 0 on 6455;
-file . "packages/riscv_32i.vhd" "d10ac149b9c3ea34f458328d3f4c5e374f6bb59f" "20210326112039.331":
-  package riscv_32i at 1( 0) + 0 on 4013;
-  package body riscv_32i at 31( 1107) + 0 on 4014;
-file . "packages/helpers.vhd" "1bd53dab1c67aa6c4bb7dfa869ea100089eccab3" "20210506085111.134":
-  package helpers at 1( 0) + 0 on 6452 body;
-  package body helpers at 22( 925) + 0 on 6453;
-file . "packages/assembler.vhd" "3724624004383d164970ed451066318ce57a1f0f" "20210506085111.151":
-  package assembler at 1( 0) + 0 on 6456 body;
-  package body assembler at 33( 746) + 0 on 6457;
-file . "hw/branch_control.vhd" "1da20116ce7dc1d05f7e1af79febb1c48cbea8d5" "20210506085111.184":
-  entity branch_control at 1( 0) + 0 on 6466;
-  architecture control_arch of branch_control at 31( 827) + 0 on 6467;
-file . "tb/cache_pc_tb.vhd" "f9ea005a308e7160fd4156ac8cb5332ef6350087" "20210329151746.265":
-  entity tb_cache_pc at 1( 0) + 0 on 4126;
-  architecture tb of tb_cache_pc at 13( 319) + 0 on 4127;
-  configuration cfg_tb_cache_pc at 184( 5409) + 0 on 4128;
-file . "tb/reg_32_tb.vhd" "eb844a89ac21d6eba3486dacb9d4cd09b396306c" "20210204233354.293":
-  entity tb_reg_32 at 1( 0) + 0 on 488;
-  architecture tb of tb_reg_32 at 18( 345) + 0 on 489;
-file . "tb/PC_tb.vhd" "8dfe73023874903b04b6b387781a1bf1fa8b11b8" "20210401135426.125":
-  entity tb_pc at 2( 1) + 0 on 4250;
-  architecture tb of tb_pc at 16( 197) + 0 on 4251;
-file . "tb/decoder_tb.vhd" "d797c26e81192d804faba96e2d5b42f12127d049" "20210211103346.092":
-  entity tb_decoder at 1( 0) + 0 on 715;
-  architecture tb of tb_decoder at 14( 245) + 0 on 716;
+file . "packages/csr_info.vhd" "df22b91c7d2257370aaba65a75ebf5353aa3c870" "20210507155000.629":
+  package csr_info at 1( 0) + 0 on 6776 body;
+  package body csr_info at 80( 2995) + 0 on 6777;
+file . "hw/cache_dma.vhd" "eaaaa4ab9ad55f055100af8f39afc9044df7935a" "20210507155000.680":
+  entity cache_dma at 1( 0) + 0 on 6788;
+  architecture cache_arch of cache_dma at 37( 1454) + 0 on 6789;
+file . "hw/cpu_32i.vhd" "cb3355c4d02c5b6100a2151901b3342f56863825" "20210507155000.685":
+  entity cpu_32i at 1( 0) + 0 on 6792;
+  architecture arch of cpu_32i at 13( 418) + 0 on 6793;
+file . "tb/cpu_32i_tb.vhd" "a55bae5eb8e0de5541835e4ed7ae9b0276914857" "20210505135548.354":
+  entity tb_cpu_32i at 1( 0) + 0 on 6446;
+  architecture tb of tb_cpu_32i at 20( 361) + 0 on 6447;
+file . "hw/RISCV32I_test.vhd" "905db8225cccbfe3cabf7510c1d033f8672b4588" "20210220182144.673":
+  entity riscv_32i_test at 1( 0) + 0 on 1155;
+  architecture arch of riscv_32i_test at 13( 432) + 0 on 1156;
+file . "hw/pipeline_control.vhd" "05133e82691111ad38c51d572c9fb7302f21fe11" "20210507155000.709":
+  entity pipeline_control at 1( 0) + 0 on 6810;
+  architecture arch of pipeline_control at 32( 784) + 0 on 6811;
+file . "tb/alu32i_tb.vhd" "2b0bcd0491fce0ce934161cc1ff80be97f2d3b15" "20210215161755.849":
+  entity tb_alu32i at 1( 0) + 0 on 877;
+  architecture tb of tb_alu32i at 15( 278) + 0 on 878;
+file . "hw/delay_std_ulogic.vhd" "d78c0c8dca1874036c7beaec8e395f23e067bb41" "20210507155000.688":
+  entity delay_std_ulogic at 1( 0) + 0 on 6796;
+  architecture arch of delay_std_ulogic at 10( 188) + 0 on 6797;
+file . "hw/integer_32_alu.vhd" "891eb244502e56d59761b675d9ee76bc20131f95" "20210507155000.698":
+  entity integer_32_alu at 1( 0) + 0 on 6802;
+  architecture alu_arch of integer_32_alu at 22( 541) + 0 on 6803;
+file . "hw/hart32i.vhd" "ad02472c30e1314e9ba39dd62b9fd609e25ed97d" "20210507155000.694":
+  entity hart32i at 1( 0) + 0 on 6800;
+  architecture hart32i_arch of hart32i at 28( 835) + 0 on 6801;
+file . "hw/delay.vhd" "42985f3ec94c084dab36548a39d7955e450835eb" "20210507155000.689":
+  entity delay at 1( 0) + 0 on 6798;
+  architecture delay_arch of delay at 14( 303) + 0 on 6799;
+file . "hw/accumulator.vhd" "02bca75f5f9f9b3df468a74723533ee10428f4c3" "20210507155000.665":
+  entity accumulator at 1( 0) + 0 on 6780;
+  architecture arch of accumulator at 21( 530) + 0 on 6781;
+file . "hw/alu32i.vhd" "6b2c9ed201ad85bac43945f62f7a0a6fce089df3" "20210507155000.670":
+  entity alu32i at 1( 0) + 0 on 6782;
+  architecture alu32i_arch of alu32i at 41( 1167) + 0 on 6783;
+file . "tb/mem_access_tx_tb.vhd" "6e6eecf5d5befb21fa70c5830e8c790eac431865" "20210208155317.822":
+  entity tb_mem_access_tx at 1( 0) + 0 on 659;
+  architecture tb of tb_mem_access_tx at 18( 346) + 0 on 660;
+file . "hw/buffers.vhd" "1b33ebcda332bfc06e9793c825e760c7ddb3c717" "20210507155000.675":
+  entity buffers at 1( 0) + 0 on 6786;
+  architecture arch of buffers at 17( 454) + 0 on 6787;
 file . "tb/mem_acss_tb.vhd" "b2c0010ab6e97855742508c0cd6b24fc119f9730" "20210206142805.456":
   entity tb_mem_acss at 5( 120) + 0 on 548;
   architecture tb of tb_mem_acss at 19( 413) + 0 on 549;
   configuration cfg_tb_mem_acss at 149( 5235) + 0 on 550;
-file . "hw/buffers.vhd" "1b33ebcda332bfc06e9793c825e760c7ddb3c717" "20210506085111.185":
-  entity buffers at 1( 0) + 0 on 6468;
-  architecture arch of buffers at 17( 454) + 0 on 6469;
-file . "tb/mem_access_tx_tb.vhd" "6e6eecf5d5befb21fa70c5830e8c790eac431865" "20210208155317.822":
-  entity tb_mem_access_tx at 1( 0) + 0 on 659;
-  architecture tb of tb_mem_access_tx at 18( 346) + 0 on 660;
-file . "hw/alu32i.vhd" "6b2c9ed201ad85bac43945f62f7a0a6fce089df3" "20210506085111.182":
-  entity alu32i at 1( 0) + 0 on 6464;
-  architecture alu32i_arch of alu32i at 41( 1167) + 0 on 6465;
-file . "hw/accumulator.vhd" "02bca75f5f9f9b3df468a74723533ee10428f4c3" "20210506085111.180":
-  entity accumulator at 1( 0) + 0 on 6462;
-  architecture arch of accumulator at 21( 530) + 0 on 6463;
-file . "hw/delay.vhd" "42985f3ec94c084dab36548a39d7955e450835eb" "20210506085111.192":
-  entity delay at 1( 0) + 0 on 6480;
-  architecture delay_arch of delay at 14( 303) + 0 on 6481;
-file . "hw/hart32i.vhd" "ad02472c30e1314e9ba39dd62b9fd609e25ed97d" "20210506085111.194":
-  entity hart32i at 1( 0) + 0 on 6482;
-  architecture hart32i_arch of hart32i at 28( 835) + 0 on 6483;
-file . "hw/integer_32_alu.vhd" "891eb244502e56d59761b675d9ee76bc20131f95" "20210506085111.195":
-  entity integer_32_alu at 1( 0) + 0 on 6484;
-  architecture alu_arch of integer_32_alu at 22( 541) + 0 on 6485;
-file . "hw/delay_std_ulogic.vhd" "d78c0c8dca1874036c7beaec8e395f23e067bb41" "20210506085111.191":
-  entity delay_std_ulogic at 1( 0) + 0 on 6478;
-  architecture arch of delay_std_ulogic at 10( 188) + 0 on 6479;
-file . "tb/alu32i_tb.vhd" "2b0bcd0491fce0ce934161cc1ff80be97f2d3b15" "20210215161755.849":
-  entity tb_alu32i at 1( 0) + 0 on 877;
-  architecture tb of tb_alu32i at 15( 278) + 0 on 878;
-file . "hw/pipeline_control.vhd" "05133e82691111ad38c51d572c9fb7302f21fe11" "20210506085111.202":
-  entity pipeline_control at 1( 0) + 0 on 6492;
-  architecture arch of pipeline_control at 32( 784) + 0 on 6493;
-file . "hw/RISCV32I_test.vhd" "905db8225cccbfe3cabf7510c1d033f8672b4588" "20210220182144.673":
-  entity riscv_32i_test at 1( 0) + 0 on 1155;
-  architecture arch of riscv_32i_test at 13( 432) + 0 on 1156;
-file . "tb/cpu_32i_tb.vhd" "a55bae5eb8e0de5541835e4ed7ae9b0276914857" "20210505135548.354":
-  entity tb_cpu_32i at 1( 0) + 0 on 6446;
-  architecture tb of tb_cpu_32i at 20( 361) + 0 on 6447;
-file . "hw/cpu_32i.vhd" "cb3355c4d02c5b6100a2151901b3342f56863825" "20210506085111.189":
-  entity cpu_32i at 1( 0) + 0 on 6474;
-  architecture arch of cpu_32i at 13( 418) + 0 on 6475;
-file . "hw/cache_dma.vhd" "eaaaa4ab9ad55f055100af8f39afc9044df7935a" "20210506085111.187":
-  entity cache_dma at 1( 0) + 0 on 6470;
-  architecture cache_arch of cache_dma at 37( 1454) + 0 on 6471;
-file . "packages/csr_info.vhd" "df22b91c7d2257370aaba65a75ebf5353aa3c870" "20210506085111.157":
-  package csr_info at 1( 0) + 0 on 6458 body;
-  package body csr_info at 80( 2995) + 0 on 6459;
+file . "tb/decoder_tb.vhd" "d797c26e81192d804faba96e2d5b42f12127d049" "20210211103346.092":
+  entity tb_decoder at 1( 0) + 0 on 715;
+  architecture tb of tb_decoder at 14( 245) + 0 on 716;
+file . "tb/PC_tb.vhd" "8dfe73023874903b04b6b387781a1bf1fa8b11b8" "20210401135426.125":
+  entity tb_pc at 2( 1) + 0 on 4250;
+  architecture tb of tb_pc at 16( 197) + 0 on 4251;
+file . "tb/reg_32_tb.vhd" "eb844a89ac21d6eba3486dacb9d4cd09b396306c" "20210204233354.293":
+  entity tb_reg_32 at 1( 0) + 0 on 488;
+  architecture tb of tb_reg_32 at 18( 345) + 0 on 489;
+file . "tb/cache_pc_tb.vhd" "f9ea005a308e7160fd4156ac8cb5332ef6350087" "20210329151746.265":
+  entity tb_cache_pc at 1( 0) + 0 on 4126;
+  architecture tb of tb_cache_pc at 13( 319) + 0 on 4127;
+  configuration cfg_tb_cache_pc at 184( 5409) + 0 on 4128;
+file . "hw/branch_control.vhd" "1da20116ce7dc1d05f7e1af79febb1c48cbea8d5" "20210507155000.674":
+  entity branch_control at 1( 0) + 0 on 6784;
+  architecture control_arch of branch_control at 31( 827) + 0 on 6785;
+file . "packages/assembler.vhd" "3724624004383d164970ed451066318ce57a1f0f" "20210507155000.607":
+  package assembler at 1( 0) + 0 on 6774 body;
+  package body assembler at 33( 746) + 0 on 6775;
+file . "packages/helpers.vhd" "1bd53dab1c67aa6c4bb7dfa869ea100089eccab3" "20210507155000.569":
+  package helpers at 1( 0) + 0 on 6770 body;
+  package body helpers at 22( 925) + 0 on 6771;
+file . "packages/riscv_32i.vhd" "d10ac149b9c3ea34f458328d3f4c5e374f6bb59f" "20210326112039.331":
+  package riscv_32i at 1( 0) + 0 on 4013;
+  package body riscv_32i at 31( 1107) + 0 on 4014;
+file . "packages/tb_heplers.vhd" "47c0fa7f6ae3220d80f10e43f63f744bf7915d6f" "20210507155000.587":
+  package tb_helpers at 1( 0) + 0 on 6772 body;
+  package body tb_helpers at 37( 1547) + 0 on 6773;
+file . "tb/integer_32_ALU_tb.vhd" "582cb56d9d3740c53c7ae64b1cf35b1be6b40b59" "20210202135437.057":
+  entity tb_integer_32_alu at 1( 0) + 0 on 349;
+  architecture tb of tb_integer_32_alu at 17( 294) + 0 on 350;
+file . "tb/branch_control_tb.vhd" "734752a050a8dfb7a4dee8c15a7b37e1d99fc5fc" "20210204151500.027":
+  entity tb_branch_control at 1( 0) + 0 on 389;
+  architecture tb of tb_branch_control at 18( 494) + 0 on 390;
+  configuration cfg_tb_branch_control at 208( 6709) + 0 on 391;
+file . "hw/cache_pc.vhd" "24a160a4b87c84f02cb5278c47aa38052c89a7b8" "20210507155000.683":
+  entity cache_pc at 2( 1) + 0 on 6790;
+  architecture cache_arch of cache_pc at 30( 1077) + 0 on 6791;
+file . "hw/reg_32.vhd" "8b0fd7c9e3d50d88514146cfa98e1e8b70ee2384" "20210507155000.711":
+  entity reg_32 at 1( 0) + 0 on 6812;
+  architecture reg_32_arch of reg_32 at 23( 774) + 0 on 6813;
+file . "hw/PC.vhd" "d87fd60e150dc1914efb02f42ebbabefc475a661" "20210507155000.704":
+  entity pc at 1( 0) + 0 on 6808;
+  architecture pc_arch of pc at 23( 604) + 0 on 6809;
+file . "hw/decoder.vhd" "3ee0b66c5f9a818d28a34a9ac0fcedd9f4f42132" "20210507155000.687":
+  entity decoder at 1( 0) + 0 on 6794;
+  architecture decoder_arch of decoder at 21( 624) + 0 on 6795;
+file . "hw/mem_acss.vhd" "6b1942b6103bb1ac5eb4708a8ab383dc988ae8c1" "20210206142805.447":
+  entity mem_acss at 1( 0) + 0 on 546;
+  architecture arch of mem_acss at 28( 841) + 0 on 547;
+file . "hw/mem_access_rx.vhd" "71f0aec31d3f2bd060b9655a39a1c6f13fe9115c" "20210507155000.700":
+  entity mem_access_rx at 1( 0) + 0 on 6804;
+  architecture arch of mem_access_rx at 32( 865) + 0 on 6805;
+file . "hw/mem_access_tx.vhd" "01cdb3d9f92bb2bf3fbf6611c92ea00f0f0e63d8" "20210507155000.703":
+  entity mem_access_tx at 1( 0) + 0 on 6806;
+  architecture arch of mem_access_tx at 37( 1048) + 0 on 6807;
+file . "tb/mem_access_rx_tb.vhd" "347f2460b1c7aa97368fefcb230e83f30680ac44" "20210207215506.908":
+  entity tb_mem_access_rx at 1( 0) + 0 on 575;
+  architecture tb of tb_mem_access_rx at 18( 353) + 0 on 576;
+file . "tb/hart32i_tb.vhd" "5b91ecb6be91722237b3391aa981dce446db8c0c" "20210218194050.171":
+  entity tb_hart32i at 1( 0) + 0 on 1153;
+  architecture tb of tb_hart32i at 19( 331) + 0 on 1154;
+file . "tb/pipeline_control_tb.vhd" "3d7a6fa6765885c06e31319cc1b8cce74a3a9614" "20210226133449.292":
+  entity tb_pipeline_control at 1( 0) + 0 on 2453;
+  architecture tb of tb_pipeline_control at 14( 224) + 0 on 2454;
+file . "tb/cache_dma_tb.vhd" "ff48b0f8d23dcb034c5a0a497bdc5aa7e559798a" "20210504125404.549":
+  entity tb_cache_dma at 1( 0) + 0 on 6322;
+  architecture tb of tb_cache_dma at 19( 478) + 0 on 6323;
+file . "packages/string_operations.vhd" "15219dc5bb0b2af2a7a77503b9eba96a33dfedd0" "20210225145712.370":
+  package string_operations at 1( 0) + 0 on 2139 body;
+  package body string_operations at 15( 420) + 0 on 2140;
+file . "packages/assemble_file.vhd" "858946cc187fee74fdf5790979a831869595c886" "20210507155000.649":
+  package assemble_file at 1( 0) + 0 on 6778 body;
+  package body assemble_file at 43( 1264) + 0 on 6779;
+file . "packages/instructions.vhd" "c806528bcf8fcc3a1c13f019698c6cf0f45c7375" "20210507155000.552":
+  package instructions at 1( 0) + 0 on 6768 body;
+  package body instructions at 44( 1375) + 0 on 6769;
+file . "hw/zcsr.vhd" "9224871c3d0225d6363f860feafc0924da2f3712" "20210507161127.121":
+  entity zcsr at 1( 0) + 0 on 6838;
+  architecture arch of zcsr at 40( 1147) + 0 on 6839;
+file . "tb/zcsr_tb.vhd" "9a98c3561ef5fab92be6c8e9dcd66e321c1e20d6" "20210507161127.146":
+  entity tb_zcsr at 1( 0) + 0 on 6840;
+  architecture tb of tb_zcsr at 19( 314) + 0 on 6841;

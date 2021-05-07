@@ -124,7 +124,7 @@ begin
     wait for 100 ns;
     report ulogic_vector_image(assemble(iJALR,30,0,0,50)) severity error;
     
-    for i in 0 to 50 loop
+    for i in 0 to 60 loop
       case i is
         when 0 =>
           test_var := sint2ulog32(2**30);              
@@ -219,6 +219,7 @@ begin
           test_1(trap_PC, '0', "Interrupt off");
 
           set_command(iCSRRC,1,mcycle,X"00000000" );
+          external_itr_hw <= '0';
         when 22 =>
           test_against_sint(result_out, 21, "cycle timer read");
           test_against_sint(result_out, 21, "no set on rs1_in = 0");
@@ -281,6 +282,30 @@ begin
           inst_enum_in <= iADDI;
         when 48 =>
           test_1(trap_PC, '0', "fence off");
+          inst_enum_in <= iWFI;
+          PC_in <= X"00000004";
+        when 49 =>
+          inst_enum_in <= iADDI;
+          test_1(trap_PC, '1', "WFI turn on");
+          test_against_sint(PC_out, 4, "WFI jump pos");
+        when 50 to 53 =>
+          null;
+        when 54 =>
+          test_1(trap_PC, '1' , "Stall CPU for WFI");
+          test_against_sint(PC_out, 4,"Stall address");
+          
+          external_itr_hw <= '1';
+        when 55 =>
+          null;
+        when 56 =>
+          test_1(trap_PC, '0' , "Stall done");
+
+          inst_enum_in <= iMRET;
+
+        when 57 =>
+          test_1(trap_PC, '1', "trap return from instruction");
+          test_against_sint(PC_out, 8, "Set PC after MRET and set mePC after WFI");
+          inst_enum_in <= iaddi;
           
         when others =>
           null;
