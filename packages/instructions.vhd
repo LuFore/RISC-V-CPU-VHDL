@@ -195,21 +195,23 @@ package body instructions is
       when SYSTEM =>
         case funct3 is
           when "000" => --PRIV system instsructions
-            case inst(31 downto 20) is
-              when "000000000000" =>
-                return iECALL;
-              when "000000000001" =>
-                return iEBREAK;
-              --ITR instructions
-              when "001100000010" =>
-                return iMRET;
-              when "000100000101" =>
-                return iWFI;
-              when others =>
-                null;
-            end case;
-                
-            --csr instructions
+            if unsigned(inst(19 downto 7)) = to_unsigned(0,1)  then
+              case inst(31 downto 20) is
+                when "000000000000" =>
+                  return iECALL;
+                when "000000000001" =>
+                  return iEBREAK;
+                --ITR instructions
+                when "001100000010" =>
+                  return iMRET;
+                when "000100000101" =>
+                  return iWFI;
+                when others =>
+                  null;
+              end case;
+            end if;
+
+          --csr instructions
           when "001" =>
             return iCSRRW;
           when "010" =>

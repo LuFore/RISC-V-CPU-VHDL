@@ -42,12 +42,12 @@ package body assembler is
     variable temp_vector : std_ulogic_vector(31 downto 0);
     
     alias inst_rd  : std_ulogic_vector(4 downto 0) is inst_out(11 downto 7);
-    alias inst_rs1 : std_ulogic_vector(4 downto 0) is inst_out(19 downto 15);
-    alias inst_rs2 : std_ulogic_vector(4 downto 0) is inst_out(24 downto 20);
-    alias inst_op  : std_ulogic_vector(6 downto 0) is inst_out(6 downto 0);
-    alias funct3   : std_ulogic_vector(2 downto 0) is inst_out(14 downto 12);
-    alias funct7   : std_ulogic_vector(6 downto 0) is inst_out(31 downto 25);
-    
+    alias inst_rs1 : std_ulogic_vector(4  downto 0) is inst_out(19 downto 15);
+    alias inst_rs2 : std_ulogic_vector(4  downto 0) is inst_out(24 downto 20);
+    alias inst_op  : std_ulogic_vector(6  downto 0) is inst_out(6 downto 0);
+    alias funct3   : std_ulogic_vector(2  downto 0) is inst_out(14 downto 12);
+    alias funct7   : std_ulogic_vector(6  downto 0) is inst_out(31 downto 25);
+    alias funct12  : std_ulogic_vector(11 downto 0)is inst_out(31 downto 20);
     
   begin
 
@@ -130,7 +130,14 @@ package body assembler is
           when iCSRRWI => funct3 := "101";
           when iCSRRSI => funct3 := "110";
           when iCSRRCI => funct3 := "111";
-                          
+          -- Privledged commands
+          when iMRET =>
+            inst_out(19 downto 7) := (others => '0');  
+            funct12 := "001100000010";
+          when iWFI =>
+            inst_out(19 downto 7) := (others => '0');  
+            funct12 := "000100000101";
+                             
           when others =>
             report "not I type" severity error;
         end case;
@@ -221,6 +228,9 @@ package body assembler is
         r := I;
       when iCSRRWI to iCSRRCI =>--technically I type with no rs
         r := U; --U type so do not trigger a bypass or bubble as RS1 not used
+      when iMRET to iWFI =>
+        r := I; --technically type i, rs1 and rd are always 0 so doesn't
+                --matter for pipelining        
       when others => -- are I types but with no rs1
         r := other; 
         --report "invalid opcode" severity error; --mostly used for debugging
@@ -268,6 +278,8 @@ package body assembler is
       when iFENCE => r := MISC_MEM;
       when iECALL to iEBREAK => r := SYSTEM;
       when iCSRRW to iCSRRCI => r := SYSTEM;
+      when iMRET to iWFI => r := system;
+
       when others => --i_not_found =>
         null;--mostly used for debugging
         --report "not a valid instruction" severity error;
