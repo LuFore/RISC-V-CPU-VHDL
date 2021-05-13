@@ -16,12 +16,21 @@ package assembler is
   
   function assemble(inst : instruction_all;
                     rs1 : reg_address;
-                    rs2 : reg_adDress;
+                    rs2 : reg_address;
                     rd : reg_address;
                     imm : integer)
     return instruction;
   function get_type(inst : instruction_all) return format;
 
+
+  function riscv32i(inst : instruction_all; --Do not use this
+                    rs1 : reg_address;      --only kept in to
+                    rs2 : reg_address;      --keep older tbs working
+                    rd : reg_address;--all it does is call assemble
+                    imm : integer)
+    return instruction;
+
+  
   function return_OP(newop :opcode) return opcode7; 
   
   function find_inst_OP(inst :instruction_all) return opcode;
@@ -31,6 +40,7 @@ end package assembler;
 
 
 package body assembler is
+
   function assemble(inst : instruction_all;
                     rs1 : reg_address;
                     rs2 : reg_address;
@@ -137,7 +147,7 @@ package body assembler is
           when iWFI =>
             inst_out(19 downto 7) := (others => '0');  
             funct12 := "000100000101";
-                             
+            
           when others =>
             report "not I type" severity error;
         end case;
@@ -173,33 +183,33 @@ package body assembler is
         end case;
         
       when U =>
-            temp_vector(31 downto 0) := std_ulogic_vector(to_unsigned(imm, 32));
-            inst_out(31 downto 12) := temp_vector(31 downto 12);
-            --no case statement needed, the two U types differ only in
-            --Opcode
+        temp_vector(31 downto 0) := std_ulogic_vector(to_unsigned(imm, 32));
+        inst_out(31 downto 12) := temp_vector(31 downto 12);
+      --no case statement needed, the two U types differ only in
+      --Opcode
       when J =>
-            temp_vector(20 downto 0) := std_ulogic_vector(to_unsigned(imm, 21));
-            inst_out(19 downto 12) := temp_vector(19 downto 12);
-            inst_out(20) := temp_vector(11);
-            inst_out(30 downto 21) := temp_vector(10 downto 1);
-            inst_out(31) := temp_vector(20);
-            --no case statement needed, only one J type
-          when other =>
-            case inst is
-              when iFENCE =>
-                report "ifence not yet implimented in assembler" severity error;
-              when iECALL =>
-                inst_out(31 downto 7) := (others => '0');
-              when iEBREAK =>
-                inst_out(31 downto 7) := (others => '0');
-                inst_out(20) := '1';
-              when others =>
-                report "not an OPCODE yet implimented in assembler" severity error;
-            end case;
-            
+        temp_vector(20 downto 0) := std_ulogic_vector(to_unsigned(imm, 21));
+        inst_out(19 downto 12) := temp_vector(19 downto 12);
+        inst_out(20) := temp_vector(11);
+        inst_out(30 downto 21) := temp_vector(10 downto 1);
+        inst_out(31) := temp_vector(20);
+      --no case statement needed, only one J type
+      when other =>
+        case inst is
+          when iFENCE =>
+            report "ifence not yet implimented in assembler" severity error;
+          when iECALL =>
+            inst_out(31 downto 7) := (others => '0');
+          when iEBREAK =>
+            inst_out(31 downto 7) := (others => '0');
+            inst_out(20) := '1';
+          when others =>
+            report "not an OPCODE yet implimented in assembler" severity error;
         end case;
-            inst_op := return_OP(find_inst_OP(inst));
-            return inst_out;
+        
+    end case;
+    inst_op := return_OP(find_inst_OP(inst));
+    return inst_out;
   end assemble;
 
   function get_type(inst : instruction_all) return format is
@@ -230,10 +240,10 @@ package body assembler is
         r := U; --U type so do not trigger a bypass or bubble as RS1 not used
       when iMRET to iWFI =>
         r := I; --technically type i, rs1 and rd are always 0 so doesn't
-                --matter for pipelining        
+      --matter for pipelining        
       when others => -- are I types but with no rs1
         r := other; 
-        --report "invalid opcode" severity error; --mostly used for debugging
+    --report "invalid opcode" severity error; --mostly used for debugging
     end case;
 
     return r;
@@ -282,9 +292,21 @@ package body assembler is
 
       when others => --i_not_found =>
         null;--mostly used for debugging
-        --report "not a valid instruction" severity error;
+    --report "not a valid instruction" severity error;
     end case;
     return r;
   end find_inst_OP;
+
+
+  function riscv32i(inst : instruction_all; --Do not use this
+                    rs1 : reg_address;      --only kept in to
+                    rs2 : reg_address;      --keep older tbs working
+                    rd : reg_address;
+                    imm : integer)
+    return instruction is
+  begin
+    return assemble(inst,rs1,rs2,rd,imm);
+  end riscv32i;
+
   
 end package body assembler;             

@@ -40,14 +40,17 @@ begin
         when iSlTI =>
           --should set rd to 0, but this is handled by acc_me and the accumulator
           if not signed(rs1_in) < signed_extend(imm,rs1_in'length ) then
-            acc_me <= '0';
-          end if;
-          acc_out <= X"00000001";
+            acc_out <= X"00000000";
+            else
+              acc_out <= X"00000001";
+            end if;
+            
         when iSlTIU=>
           if not unsigned(rs1_in) < unsigned(X"00000" & imm) then  
-            acc_me <= '0';
-          end if;
-          acc_out <= X"00000001";
+            acc_out <= X"00000000";
+          else
+            acc_out <= X"00000001";
+          end if;  
         when iXORI =>
           acc_out <= rs1_in xor std_ulogic_vector(signed_extend(imm, bitwidth + 1));
         when iORI  =>
@@ -68,15 +71,17 @@ begin
         when iSLL =>
           acc_out <= lleft_shift(rs1_in,to_integer(unsigned(rs2_in(4 downto 0))));
         when iSLT =>
-          if not  signed(rs1_in) < signed(rs2_in) then
-            acc_me <= '0';
+          if not signed(rs1_in) < signed(rs2_in) then
+            acc_out <= X"00000000";
+          else
+            acc_out <= X"00000001";
           end if;
-          acc_out <= X"00000001";
         when iSLTU=>
           if not unsigned(rs1_in) < unsigned(rs2_in) then
-            acc_me <= '0';
-          end if;     
-          acc_out <= X"00000001";
+            acc_out <= X"00000000";
+          else
+            acc_out <= X"00000001";
+          end if;
         when iXOR =>
           acc_out <= rs1_in xor rs2_in;
         when iSRL =>
