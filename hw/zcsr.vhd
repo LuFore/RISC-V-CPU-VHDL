@@ -305,7 +305,7 @@ begin
           take_itr(7);
         elsif (external_itr_hw and mie_reg(11)) = '1' then--external itr
           take_itr(11);
-        elsif or_all(mie_reg and mip_reg) = '1' then --find any other itr in
+        elsif or_all(mie_reg(31 downto 16) and mip_reg(31 downto 16)) = '1' then --find any other itr in
                                                      --WIRI space
           --catch all for all mip/mie after 16, not defined in spec so should
           --be legal, would be better to do with for loop or more of the above
