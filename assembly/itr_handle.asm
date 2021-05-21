@@ -25,11 +25,10 @@ addi 29 0 252 location of software interrupt
 sb 29 0 0 turn off software interrupt
 
 addi 31 0 8 create value to write that re-enables interupts (1000)
-csrrs 31 0 768 save previous value to mie in mstatus enabling interrupts.
+csrrs 0 31 768 save previous value to mie in mstatus enabling interrupts.
 
 csrrc 30 0 833 read value of mepc
 addi 30 30 4 increment to go to next instruction
-NOT USED blt 0 29 -56 Jump back to program, don't store value of jump not
 jalr 0 30 0 Jump back to program, don't store value of jump 
 
 
