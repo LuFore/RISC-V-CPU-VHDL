@@ -2,8 +2,8 @@ library IEEE;
 use ieee.std_logic_1164.all;
 
 entity CPU_32I is
-  generic(cache_size : natural := 1024;
-          bit_width  : natural := 32-1); --1kb of cache
+  generic(bit_width : natural := 32-1;
+	  bus_width : natural := 32-1);
   port(
     clk, rst_hart, rst_mem, interrupt       : in std_ulogic;
     read_address, write_address, write_data : in std_ulogic_vector(bit_width downto 0);
@@ -13,32 +13,22 @@ end CPU_32I;
 architecture arch of CPU_32I is
 
   component hart32i is
-    generic(
-      bit_width           : integer := 32 -1;
-      Cache_addres_width  : integer := 8;
-      Cache_bus_width     : integer := 32 - 1
-      );
-    port(
+   port(
       clk, rst       : in std_ulogic;
       PC_out         :out std_ulogic_vector(bit_width downto 0);
-      PC_in          : in std_ulogic_vector(Cache_bus_width downto 0);
+      PC_in          : in std_ulogic_vector(bus_width downto 0);
 
       memory_width   :out std_ulogic_vector(1 downto 0);
       memory_write   :out std_ulogic;
       memory_address :out std_ulogic_vector(bit_width       downto 0);
-      memory_store   :out std_ulogic_vector(Cache_bus_width downto 0);
-      memory_load    : in std_ulogic_vector(Cache_bus_width downto 0);
+      memory_store   :out std_ulogic_vector(bus_width downto 0);
+      memory_load    : in std_ulogic_vector(bus_width downto 0);
       external_itr, memory_mapped_itr, timer_itr : in std_ulogic
       );
   end component;
 
 
-  component cache_dma is -- a register
-    generic(
-      address_width 	        : integer := 8; --size of each address in bits
-      cache_size		: integer := 256;	--numbers of addresses in cache
-      bus_width 		: integer := (32-1) 		--size of access bus
-      );
+  component cache_dma is -- a register   
     port(
       clk,rst, rw	: in std_ulogic;	
 
@@ -72,7 +62,6 @@ begin
              timer_itr => signal_timer_itr );
 
   memory : cache_dma
-    generic map(cache_size => cache_size)
     port map(clk => clk, rst => rst_mem, add_pc => PC_address, dat_pc => PC_data, rw => rw,
              dat_out => read_data_int, dat_in => write_data_int,  add_in => mem_address, mem_len =>
              mem_length, dma_data_in => write_data, dma_data_out => read_data,

@@ -1,19 +1,16 @@
 library IEEE;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+
+library work;
+use work.memory_defs.all;
+
 -- Little endian, stores all bits in the (top downto bottom) format
 entity cache_dma is -- a register
   generic(
-    address_width 	: positive := 8; --size of each address in bits
-    cache_size		: positive := 256;	--numbers of addresses in cache
-    bus_width 		: positive := (32-1); 		--size of access bus
-    software_itr_address: natural  := 252;
-
-    mtime_lower         : positive := 100; --arbitrary numbers for memory
-    mtime_upper         : positive := 104; --mapped timer interupt regs
-    mtimecmp_lower      : positive := 108;
-    mtimecmp_upper      : positive := 112
-    );
+    address_width : positive := 8;       --size of each address in bits
+    bus_width 	  : positive := (32-1)); --size of access bus
+   
   port(
     clk,rst, rw		: in std_ulogic;	-- low is write, high is read	
 

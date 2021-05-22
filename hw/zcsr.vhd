@@ -6,15 +6,14 @@ library work;
 use work.instructions.all;
 use work.csr_info.all;
 use work.helpers.all; 
+use work.memory_defs.all;
 
 entity zcsr is
 --absolutely massive, stores the control status registers, detects and performs
 --traps
   generic(
     XLEN : positive    := 32-1;
-    Hardware_thread_ID : natural := 0;
-    cache_size : positive        := 1024
-    );
+    Hardware_thread_ID : natural := 0);
 
   port(
     clk, rst : in std_ulogic;

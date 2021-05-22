@@ -8,6 +8,7 @@ ghdl -a packages/tb_heplers.vhd &&
 ghdl -a packages/assembler.vhd &&
 ghdl -a packages/csr_info.vhd &&
 ghdl -a packages/assemble_file.vhd &&
+ghdl -a packages/memory_defs.vhd && 
 
 ##build all the hardware
 ghdl -a hw/*.vhd
