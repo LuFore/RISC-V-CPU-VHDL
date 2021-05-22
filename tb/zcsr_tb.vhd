@@ -305,8 +305,19 @@ begin
         when 57 =>
           test_1(trap_PC, '1', "trap return from instruction");
           test_against_sint(PC_out, 8, "Set PC after MRET and set mePC after WFI");
-          inst_enum_in <= iaddi;
           
+					inst_enum_in <= iaddi; --random instruction
+			
+				when 58 =>
+					test_1(trap_PC, '0', "trap off");				
+          PC_in <= std_ulogic_vector(
+										to_unsigned(positive'high ,PC_in'length)); --set PC to too high :)
+				when 59 =>
+					test_1(trap_PC, '1', "error on impossible instruction access");
+					PC_in <= std_ulogic_vector(to_unsigned(4,32));
+				when 60 =>
+					test_1(trap_PC, '0',"trap off after impossible access");
+
         when others =>
           null;
       end case;

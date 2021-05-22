@@ -569,7 +569,13 @@ begin
 
       manage_timers;
       manage_itr; --manage interrupts
-      
+
+			--trap when attemping to access memory that doesn't exist			
+			if unsigned(PC_in) > to_unsigned(cache_size,PC_in'length) then
+				trap := true;
+				mcause_set := trap_mcause(1);
+			end if;
+
       --trap on misaligned instruction
       if PC_in(1 downto 0) /= "00" then
         trap := true;
