@@ -72,7 +72,7 @@ begin
     rst <= '1';
     wait for 100 ns;
 
-    for clk_count in 0 to clk_max loop
+    for clk_count in 0 to 36 loop
       case clk_count is
         when 0=>
           inst_in <= assembler.RISCV32I(iADDI, 0, 0, 0, 100);
@@ -296,6 +296,11 @@ begin
         when 35 =>
           test_1(acc_me, '0' , "test non-ALU instruction");
           
+					inst_enum_in <= iADD;
+					rs1_in 			 <= (others => '1');
+					rs2_in 			 <= (others => '1');
+				when 36 =>
+					test(acc_out, "11111111111111111111111111111110","Overflow");
           
         when others => null;
       end case;
