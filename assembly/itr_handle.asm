@@ -14,10 +14,9 @@ addi 0 0 0
 addi 0 0 0
 addi 0 0 0
 addi 0 0 0
-addi 0 0 0
-addi 0 0 0
 addi 10 0 1 just a random number to see if test works
-
+addi 0 0 0 
+addi 0 0 0
 
 interrupt handler 
 Do something to do with interrupt
