@@ -17,13 +17,12 @@ entity pipeline_control is
     
     rs1_in,rs2_in         : in std_ulogic_vector(XLEN downto 0);
     result_in, load_in    : in std_ulogic_vector(XLEN downto 0);
-    
 
     rs1_out, rs2_out      :out std_ulogic_vector(XLEN downto 0);
     
     inst_in               : in instruction;
     inst_enum_in          : in instruction_all;
-
+    
     next_inst             : in instruction;
     next_inst_enum        : in instruction_all
     );
