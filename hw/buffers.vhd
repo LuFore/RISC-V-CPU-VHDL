@@ -48,6 +48,3 @@ begin
   rst_d2 <= rst_d2s;
   rst_d3 <= rst_d3s;
 end arch;
-        
-          
-    
